@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/burha/Desktop/Sakinaaaaa/Will%20you%20be%20my%20Valentine/src/components/RouteGuard.tsx"],"sourcesContent":["\"use client\";\n\nimport { useEffect } from \"react\";\nimport { useRouter } from \"next/navigation\";\n\nconst GATE_OK_KEY = \"val_gate_ok\";\n\n/**\n * Checks sessionStorage for val_gate_ok. If missing, redirects to /.\n * Use on pages that require the gate to have been passed (e.g. /next and beyond).\n */\nexport function RouteGuard({ children }: { children: React.ReactNode }) {\n  const router = useRouter();\n\n  useEffect(() => {\n    if (typeof window === \"undefined\") return;\n    if (sessionStorage.getItem(GATE_OK_KEY) !== \"1\") {\n      router.replace(\"/\");\n    }\n  }, [router]);\n\n  return <>{children}</>;\n}\n"],"names":[],"mappings":";;;;;AAEA;AACA;;;AAHA;;;AAKA,MAAM,cAAc;AAMb,SAAS,WAAW,KAA2C;QAA3C,EAAE,QAAQ,EAAiC,GAA3C;;IACzB,MAAM,SAAS,IAAA,kJAAS;IAExB,IAAA,0KAAS;gCAAC;YACR;;YACA,IAAI,eAAe,OAAO,CAAC,iBAAiB,KAAK;gBAC/C,OAAO,OAAO,CAAC;YACjB;QACF;+BAAG;QAAC;KAAO;IAEX,qBAAO;kBAAG;;AACZ;GAXgB;;QACC,kJAAS;;;KADV","debugId":null}},
-    {"offset": {"line": 50, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/burha/Desktop/Sakinaaaaa/Will%20you%20be%20my%20Valentine/node_modules/next/navigation.js"],"sourcesContent":["module.exports = require('./dist/client/components/navigation')\n"],"names":[],"mappings":"AAAA,OAAO,OAAO","ignoreList":[0],"debugId":null}}]
-}
