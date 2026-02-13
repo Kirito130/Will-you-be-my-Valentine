@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom heart cursor site-wide (pages 1–6) — classic heart, clear outline, 28x28 hotspot center */
+html,
+body,
+body * {
+  cursor: url("/cursor-heart.svg") 14 14, auto;
+}
+a,
+button,
+[role="button"],
+input,
+select,
+textarea,
+[tabindex]:not([tabindex="-1"]) {
+  cursor: url("/cursor-heart.svg") 14 14, pointer;
+}
+
+/* Slightly larger base for Parisienne readability */
+html {
+  font-size: 16px;
+}
+@media (min-width: 640px) {
+  html {
+    font-size: 17px;
+  }
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+/* Respect reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Smooth focus ring for keyboard accessibility */
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-valentine-rose;
+}
