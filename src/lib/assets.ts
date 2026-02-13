@@ -35,6 +35,6 @@ export const assets = {
   /** Misc */
   bowWithArrow: asset("bow with arrow.png"),
   brokenHeart: asset("broken heart.png"),
-  iLoveYou1: asset("i love you #1.png"),
-  iLoveYou2: asset("i love you #2.png"),
+  iLoveYou1: asset("i love you 1.png"),
+  iLoveYou2: asset("i love you 2.png"),
 } as const;
