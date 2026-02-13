@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/** Path to background song (Ravyn Lenae - Love Me Not). Place your audio file at public/music/love-me-not.mp3 */
-const MUSIC_SRC = "/music/love-me-not.mp3";
+/** Path to background song (Ravyn Lenae - Love Me Not). Place your audio file at public/music/love-me-not.MP3 */
+const MUSIC_SRC = "/music/love-me-not.MP3";
 
 /**
  * Background music that plays in a loop. Unmuted by default.
@@ -52,15 +52,20 @@ export function BackgroundMusic({ allowPlay = false }: { allowPlay?: boolean }) 
     }
   }, [allowPlay, isMuted, isLoaded]);
 
-  const toggleMuted = () => {
-    setIsMuted((m) => !m);
+  const handleClick = () => {
+    const nextMuted = !isMuted;
+    setIsMuted(nextMuted);
+    if (!nextMuted && audioRef.current && allowPlay) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => {});
+    }
   };
 
   return (
     <>
       <button
         type="button"
-        onClick={toggleMuted}
+        onClick={handleClick}
         className="fixed bottom-4 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-lg border border-valentine-pink/40 text-valentine-deep hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-valentine-rose"
         aria-label={isMuted ? "Play background music" : "Mute background music"}
         title={isMuted ? "Play background music (Ravyn Lenae - Love Me Not)" : "Mute music"}

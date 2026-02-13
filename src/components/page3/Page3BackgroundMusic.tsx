@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const MUSIC_SRC = "/music/Daylight.mp3";
+const MUSIC_SRC = "/music/Daylight.MP3";
 
 /**
  * Background music for Landing Page 3: Daylight on loop.
@@ -51,10 +51,19 @@ export function Page3BackgroundMusic() {
     else audio.pause();
   }, [isMuted, isLoaded]);
 
+  const handleClick = () => {
+    const nextMuted = !isMuted;
+    setIsMuted(nextMuted);
+    if (!nextMuted && audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => {});
+    }
+  };
+
   return (
     <button
       type="button"
-      onClick={() => setIsMuted((m) => !m)}
+      onClick={handleClick}
       className="fixed bottom-4 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur border border-white/40 text-white hover:bg-white/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-valentine-page transition-colors"
       aria-label={isMuted ? "Play background music" : "Mute background music"}
       title={isMuted ? "Play music (Daylight)" : "Mute music"}

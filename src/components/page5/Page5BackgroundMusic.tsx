@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/** Path to background song (You Belong With Me). Place your audio file at public/music/You Belong With Me.mp3 */
-const MUSIC_SRC = "/music/" + encodeURIComponent("You Belong With Me.mp3");
+/** Path to background song (You Belong With Me). Place your audio file at public/music/You Belong With Me.MP3 */
+const MUSIC_SRC = "/music/" + encodeURIComponent("You Belong With Me.MP3");
 
 const NORMAL_VOLUME = 1;
 const DUCKED_VOLUME = 0.18;
@@ -63,10 +63,19 @@ export function Page5BackgroundMusic({ duck = false }: { duck?: boolean }) {
     }
   }, [isMuted, isLoaded, duck]);
 
+  const handleClick = () => {
+    const nextMuted = !isMuted;
+    setIsMuted(nextMuted);
+    if (!nextMuted && audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => {});
+    }
+  };
+
   return (
     <button
       type="button"
-      onClick={() => setIsMuted((m) => !m)}
+      onClick={handleClick}
       className="fixed bottom-4 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur border border-white/40 text-white hover:bg-white/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-valentine-page transition-colors"
       aria-label={isMuted ? "Play background music" : "Mute background music"}
       title={isMuted ? "Play music (You Belong With Me)" : "Mute music"}
