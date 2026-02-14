@@ -39,11 +39,14 @@ const flipIn = {
  * then final stage with timer. When timer hits zero, released message then burst (bloom + headline).
  * Uses Landing page 2 background; assets in backdrop use scattered scale-in + slow rotation (no bounce/orbit).
  */
+const FADE_OUT_MS = 700;
+
 export function Page6Content() {
   const router = useRouter();
   const [phase, setPhase] = useState<Phase>("flow");
   const [stageIndex, setStageIndex] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [exiting, setExiting] = useState(false);
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const clearTimers = useCallback(() => {
@@ -95,12 +98,19 @@ export function Page6Content() {
     timersRef.current.push(t);
   }, []);
 
-  // After burst, wait 15s then navigate to page-7
+  // After burst, wait 15s then fade out and navigate to page-7 for a smooth transition
   useEffect(() => {
     if (phase !== "burst") return;
-    const t = setTimeout(() => router.push("/page-7"), BURST_HOLD_MS);
+    let t2: ReturnType<typeof setTimeout> | null = null;
+    const t = setTimeout(() => {
+      setExiting(true);
+      t2 = setTimeout(() => router.push("/page-7"), FADE_OUT_MS);
+    }, BURST_HOLD_MS);
     timersRef.current.push(t);
-    return () => clearTimeout(t);
+    return () => {
+      clearTimeout(t);
+      if (t2) clearTimeout(t2);
+    };
   }, [phase, router]);
 
   const isFinalStage = phase === "final";
@@ -167,6 +177,17 @@ export function Page6Content() {
         {/* Burst: overlay with bloom + headline */}
         {isBurst && <Page6Burst />}
       </div>
+
+      {/* Smooth transition overlay: fade to same bg before navigating to Page 7 */}
+      {exiting && (
+        <motion.div
+          className="fixed inset-0 bg-valentine-page2 z-30 pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: FADE_OUT_MS / 1000 }}
+          aria-hidden
+        />
+      )}
     </main>
   );
 }

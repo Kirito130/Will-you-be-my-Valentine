@@ -1,16 +1,15 @@
 import { RouteGuard } from "@/components/RouteGuard";
+import { Page7Content } from "@/components/page7/Page7Content";
 
 /**
- * 7th Landing Page — Placeholder for next spec.
+ * 7th Landing Page — Valentine finale. Same background as Page 6.
+ * Grand Surprise intro then promise flow with typewriter + backspace,
+ * ending with "I LOVE YOU SAKINA". Background music: Ishq Hai.
  */
 export default function Page7() {
   return (
     <RouteGuard>
-      <main className="min-h-screen flex items-center justify-center bg-valentine-page2">
-        <p className="font-display text-2xl text-white drop-shadow-lg">
-          Page 7 — placeholder
-        </p>
-      </main>
+      <Page7Content />
     </RouteGuard>
   );
 }
